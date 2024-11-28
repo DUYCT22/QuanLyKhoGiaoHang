@@ -1,0 +1,98 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<NguyenNhutDuy_2122110447.Models.DonHang>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Danh sách đơn hàng</title>
+</head>
+<body>
+    <button class="btn btn-success text-bg-light">
+        @Html.ActionLink("Nhập hàng", "Create")
+    </button>
+     <p></p>  
+   
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model[0].DiaChi)</th>
+                <th>@Html.DisplayNameFor(model => model[0].Ten)</th>
+                <th>@Html.DisplayNameFor(model => model[0].Loai)</th>
+                <th>@Html.DisplayNameFor(model => model[0].CanNang)</th>
+                <th>@Html.DisplayNameFor(model => model[0].TenNguoiNhan)</th>
+                <th>@Html.DisplayNameFor(model => model[0].Sdt)</th>
+                <th>@Html.DisplayNameFor(model => model[0].GiaTriDonHang)</th>
+                <th>@Html.DisplayNameFor(model => model[0].TongTien)</th>
+                <th>@Html.DisplayNameFor(model => model[0].GhiChu)</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+               
+               <tr onclick="if(!event.target.closest('.btn')) window.location.href='@Url.Action("Detail", "Order", new { id = item.Id })'" style="cursor: pointer;">
+
+                   <td>@Html.DisplayFor(modelItem => item.DiaChi)</td>
+                   <td>@Html.DisplayFor(modelItem => item.Ten)</td>
+                   <td>@Html.DisplayFor(modelItem => item.Loai)</td>
+                   <td>@Html.DisplayFor(modelItem => item.CanNang)</td>
+                   <td>@Html.DisplayFor(modelItem => item.TenNguoiNhan)</td>
+                   <td>@Html.DisplayFor(modelItem => item.Sdt)</td>
+                   <td>@Html.DisplayFor(modelItem => item.GiaTriDonHang)</td>
+                   <td>@Html.DisplayFor(modelItem => item.TongTien)</td>
+                   <td>@Html.DisplayFor(modelItem => item.GhiChu)</td>
+                   <td>
+                       @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                       <p></p>
+                       @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, new
+                       {
+                           @class = "btn btn-danger btn-sm",
+                           onclick = "return confirm('Bạn có chắc muốn xóa không?');"
+                       })
+                   </td>
+               </tr>
+            }
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }),
+           new PagedListRenderOptions
+           {
+               DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+               DisplayLinkToLastPage = PagedListDisplayMode.Always,
+               DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+               DisplayLinkToNextPage = PagedListDisplayMode.Always,
+               MaximumPageNumbersToDisplay = 5,
+               DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+               UlElementClasses = new[] { "pagination" },
+               LiElementClasses = new[] { "page-item" },
+           })
+    </div>
+    <style>
+        .pagination a {
+            color: #007bff;
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            margin: 0 2px;
+        }
+
+            .pagination a:hover {
+                background-color: #f8f9fa;
+            }
+
+        .pagination .active a {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+    </style>
+
+</body>
+</html>

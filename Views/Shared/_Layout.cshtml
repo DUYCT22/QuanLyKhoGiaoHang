@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        /* Đặt sidebar bên trái */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #343a40;
+            padding-top: 20px;
+            transition: all 0.3s ease;
+            z-index: 1050;
+        }
+
+        /* Đảm bảo body không bị che khuất khi mở sidebar */
+        body {
+            margin-left: 250px;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Các mục menu trong sidebar */
+        .sidebar ul {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .sidebar li {
+            margin: 20px 0;
+        }
+
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+            .sidebar a:hover {
+                background-color: #495057;
+            }
+
+        /* Sidebar thu vào một ít nhưng vẫn hiển thị phần text */
+        .sidebar.shrink {
+            width: 50px;
+        }
+
+            /* Chỉ ẩn text khi sidebar thu lại */
+            .sidebar.shrink .nav-text {
+                display: none;
+            }
+
+        /* Chỉ hiển thị text khi hover vào sidebar */
+        .sidebar:hover .nav-text {
+            display: inline;
+        }
+
+        /* Nội dung mặc định khi sidebar thu nhỏ */
+        .content {
+            margin-left: 50px; /* Đồng bộ với chiều rộng sidebar khi thu nhỏ */
+            transition: margin-left 0.3s ease;
+        }
+
+            /* Nội dung khi sidebar mở rộng */
+            .content.shrink {
+                margin-left: 250px; /* Đồng bộ với chiều rộng sidebar khi mở rộng */
+            }
+
+
+        
+
+        /* Hiển thị nút khi sidebar thu vào */
+        .sidebar.shrink .sidebar-toggle-btn {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="sidebar shrink" id="sidebar">
+        
+
+        <ul>
+            
+            <li><a href="@Url.Action("Index", "Home")" class="nav-link"><i class="bi bi-house-door"></i><span class="nav-text"> Trang chủ</span></a></li>
+            <li><a href="@Url.Action("Index", "Order")" class="nav-link"><i class="bi bi-box"></i><span class="nav-text"> Đơn hàng</span></a></li>
+            <li><a href="@Url.Action("About", "Home")" class="nav-link"><i class="bi bi-info-circle"></i><span class="nav-text"> About</span></a></li>
+            <li><a href="@Url.Action("Contact", "Home")" class="nav-link"><i class="bi bi-envelope"></i><span class="nav-text"> Contact</span></a></li>
+            @if (Session["LoggedInUser"] != null)
+            {
+                <li><a href="@Url.Action("Logout", "Account")" class="nav-link"><i class="bi bi-box-arrow-right"></i><span class="nav-text"> Đăng xuất</span></a></li>
+            }
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Ứng dụng ASP.NET của Nguyễn Nhựt Duy</p>
+            </footer>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap Icon -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const content = document.querySelector('.content');
+
+        // Khi di chuột vào sidebar, mở rộng sidebar và điều chỉnh nội dung
+        sidebar.addEventListener('mouseover', function () {
+            sidebar.classList.remove('shrink');
+            content.style.marginLeft = '250px'; // Đồng bộ với chiều rộng của sidebar mở rộng
+        });
+
+        // Khi di chuột ra khỏi sidebar, thu nhỏ sidebar và điều chỉnh nội dung
+        sidebar.addEventListener('mouseout', function () {
+            sidebar.classList.add('shrink');
+            content.style.marginLeft = '50px'; // Đồng bộ với chiều rộng của sidebar thu nhỏ
+        });
+    </script>
+
+
+</body>
+</html>

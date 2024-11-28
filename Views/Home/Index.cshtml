@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+        @if (Session["UserName"] != null)
+        {
+            <h2>Xin chào @Session["UserName"]</h2>
+            <hr />
+        }
+        <section class="row" aria-labelledby="aspnetTitle">
+            <h1 id="title">Quản lý Dữ liệu</h1>
+            <p class="lead">Quản lý các chỉ số và dữ liệu quan trọng qua các biểu đồ trực quan.</p>
+        </section>
+
+        <div class="row">
+            <section class="col-md-6">
+                <h2>Biểu đồ phân loại</h2>
+                <canvas id="pieChart"></canvas>
+            </section>
+            <section class="col-md-6">
+                <h2>Biểu đồ chỉ số</h2>
+                <canvas id="barChart"></canvas>
+            </section>
+        </div>
+
+        <script>
+            var ctx = document.getElementById('pieChart').getContext('2d');
+            var pieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Thiết bị điện tử', 'Văn phòng phẩm', 'Thời trang', 'Đồ gia dụng', 'Thực phẩm'],
+                    datasets: [{
+                        label: 'Số lượng',
+                        data: [20, 10, 15, 25, 13],
+                        backgroundColor: ['#ff5733', '#33ff57', '#3357ff', '#f5a623', '#00FFFF'],
+                        borderColor: ['#ff5733', '#33ff57', '#3357ff', '#f5a623', '#00FFFF'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return tooltipItem.label + ': ' + tooltipItem.raw + ' đơn';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            var ctx2 = document.getElementById('barChart').getContext('2d');
+            var barChart = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['Tổng doanh thu', 'Số đơn hàng', 'Khách hàng'],
+                    datasets: [{
+                        label: 'Chỉ số',
+                        data: [5000, 150, 120],
+                        backgroundColor: '#4e73df',
+                        borderColor: '#4e73df',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
