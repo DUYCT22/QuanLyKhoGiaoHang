@@ -11,10 +11,8 @@ namespace NguyenNhutDuy_2122110447.Controllers
         // GET: Base
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            // Kiểm tra nếu người dùng chưa đăng nhập
             if (Session["LoggedInUser"] == null)
             {
-                // Chuyển hướng đến trang đăng nhập
                 filterContext.Result = RedirectToAction("Login", "Account");
             }
 

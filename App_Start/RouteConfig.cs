@@ -19,9 +19,9 @@ namespace NguyenNhutDuy_2122110447
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
             routes.MapRoute(
-                name: "DangNhap",
+                name: "Login",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Account", action = "DangNhap", id = UrlParameter.Optional }
+                defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
             );
             routes.MapRoute(
                 name: "ImportExcel",

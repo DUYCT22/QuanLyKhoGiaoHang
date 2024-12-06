@@ -11,11 +11,9 @@
 </head>
 <body>
     <div>
-        <h4>Đơn hàng</h4>
-        <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.DiaChi): 
+                Địa chỉ: 
             </dt>
     
             <dd>
@@ -23,7 +21,7 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.Ten)
+                Tên
             </dt>
     
             <dd>
@@ -31,7 +29,7 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.Loai)
+                Loại
             </dt>
     
             <dd>
@@ -39,7 +37,7 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.CanNang)
+               Cân nặng(kg)
             </dt>
     
             <dd>
@@ -47,7 +45,7 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.TenNguoiNhan)
+                Tên người nhận
             </dt>
     
             <dd>
@@ -55,7 +53,7 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.Sdt)
+               Sdt
             </dt>
     
             <dd>
@@ -63,23 +61,23 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.GiaTriDonHang)
+                Giá trị đơn hàng
             </dt>
     
             <dd>
-                @Html.DisplayFor(model => model.GiaTriDonHang)
+                @String.Format("{0:0,0}", Model.GiaTriDonHang)
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.TongTien)
+                Tổng tiền
             </dt>
     
             <dd>
-                @Html.DisplayFor(model => model.TongTien)
+                @String.Format("{0:0,0}", Model.TongTien)
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.GhiChu)
+                Ghi chú 
             </dt>
     
             <dd>
@@ -89,8 +87,8 @@
         </dl>
     </div>
     <p>
-        @Html.ActionLink("Sửa", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Quay về", "Index")
+        @Html.ActionLink("Sửa", "Edit", new { id = Model.Id }, new { @style = "text-decoration: none;" }) |
+        @Html.ActionLink("Quay về", "Index", null, new { @style = "text-decoration: none;" })
     </p>
 </body>
 </html>

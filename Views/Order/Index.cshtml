@@ -12,55 +12,81 @@
 </head>
 <body>
     <button class="btn btn-success text-bg-light">
-        @Html.ActionLink("Nhập hàng", "Create")
+        @Html.ActionLink("Nhập hàng", "Create", null, new { @style = "text-decoration: none;" })
     </button>
-     <p></p>  
-   
+
+    <p></p>
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <form method="get">
+                <input type="text" name="searchTerm" class="form-control" placeholder="Tìm kiếm theo tên..." value="@Request.QueryString["searchTerm"]" />
+        </div>
+        <div class="col-md-4">
+            <select name="sortOrder" class="form-select">
+                <option value="asc" @(Request.QueryString["sortOrder"] == "asc" ? "selected" : "")>Giá trị đơn hàng: Thấp đến Cao</option>
+                <option value="desc" @(Request.QueryString["sortOrder"] == "desc" ? "selected" : "")>Giá trị đơn hàng: Cao đến Thấp</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary">Lọc</button>
+            </form>
+        </div>
+    </div>
+    @if (!string.IsNullOrEmpty(Request.QueryString["searchTerm"]))
+    {
+        <p class="text-muted">Kết quả tìm kiếm cho: <b>@Request.QueryString["searchTerm"]</b></p>
+    }
+
     <table class="table table-striped table-hover">
         <thead class="table-dark">
-            <tr>
-                <th>@Html.DisplayNameFor(model => model[0].DiaChi)</th>
-                <th>@Html.DisplayNameFor(model => model[0].Ten)</th>
-                <th>@Html.DisplayNameFor(model => model[0].Loai)</th>
-                <th>@Html.DisplayNameFor(model => model[0].CanNang)</th>
-                <th>@Html.DisplayNameFor(model => model[0].TenNguoiNhan)</th>
-                <th>@Html.DisplayNameFor(model => model[0].Sdt)</th>
-                <th>@Html.DisplayNameFor(model => model[0].GiaTriDonHang)</th>
-                <th>@Html.DisplayNameFor(model => model[0].TongTien)</th>
-                <th>@Html.DisplayNameFor(model => model[0].GhiChu)</th>
+            <tr class="align-content-center">
+                <th>Địa chỉ</th>
+                <th>Tên</th>
+                <th>Loại</th>
+                <th>Cân nặng(kg)</th>
+                <th>Tên người nhận</th>
+                <th>Sdt</th>
+                <th>Giá trị đơn hàng</th>
+                <th>Tổng tiền</th>
+                <th>Ghi chú</th>
                 <th>Thao tác</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-               
-               <tr onclick="if(!event.target.closest('.btn')) window.location.href='@Url.Action("Detail", "Order", new { id = item.Id })'" style="cursor: pointer;">
-
-                   <td>@Html.DisplayFor(modelItem => item.DiaChi)</td>
-                   <td>@Html.DisplayFor(modelItem => item.Ten)</td>
-                   <td>@Html.DisplayFor(modelItem => item.Loai)</td>
-                   <td>@Html.DisplayFor(modelItem => item.CanNang)</td>
-                   <td>@Html.DisplayFor(modelItem => item.TenNguoiNhan)</td>
-                   <td>@Html.DisplayFor(modelItem => item.Sdt)</td>
-                   <td>@Html.DisplayFor(modelItem => item.GiaTriDonHang)</td>
-                   <td>@Html.DisplayFor(modelItem => item.TongTien)</td>
-                   <td>@Html.DisplayFor(modelItem => item.GhiChu)</td>
-                   <td>
-                       @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
-                       <p></p>
-                       @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, new
-                       {
-                           @class = "btn btn-danger btn-sm",
-                           onclick = "return confirm('Bạn có chắc muốn xóa không?');"
-                       })
-                   </td>
-               </tr>
+                <tr onclick="if(!event.target.closest('.btn')) window.location.href='@Url.Action("Detail", "Order", new { id = item.Id })'" style="cursor: pointer;">
+                    <td>@Html.DisplayFor(modelItem => item.DiaChi)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Ten)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Loai)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CanNang)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TenNguoiNhan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Sdt)</td>
+                    <td>@String.Format("{0:0,0}", item.GiaTriDonHang)</td>
+                    <td>@String.Format("{0:0,0}", item.TongTien)</td>
+                    <td>@Html.DisplayFor(modelItem => item.GhiChu)</td>
+                    <td>
+                        @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                        <p></p>
+                        @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, new
+                        {
+                            @class = "btn btn-danger btn-sm",
+                            onclick = "return confirm('Bạn có chắc muốn xóa không?');"
+                        })
+                    </td>
+                </tr>
             }
         </tbody>
+
     </table>
     <div class="d-flex justify-content-center">
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }),
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+           new
+           {
+               page = page,
+               searchTerm = Request.QueryString["searchTerm"],
+               sortOrder = Request.QueryString["sortOrder"]
+           }),
            new PagedListRenderOptions
            {
                DisplayLinkToFirstPage = PagedListDisplayMode.Always,
@@ -72,6 +98,7 @@
                UlElementClasses = new[] { "pagination" },
                LiElementClasses = new[] { "page-item" },
            })
+
     </div>
     <style>
         .pagination a {

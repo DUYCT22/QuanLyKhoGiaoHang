@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using Newtonsoft.Json;
 using NguyenNhutDuy_2122110447.Models;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace NguyenNhutDuy_2122110447.Controllers
                 {
                     Session["LoggedInUser"] = user.TenDangNhap;
                     var id = data.NhanViens.FirstOrDefault(n => n.IdNhanVien == user.IdNhanVien);
+                    Session["IdUser"] = id.IdNhanVien;
                     Session["UserName"] = id.TenNhanVien;
                     return RedirectToAction("Index", "Home");
                 }
@@ -37,7 +39,16 @@ namespace NguyenNhutDuy_2122110447.Controllers
             ViewBag.ErrorMessage = "Tên đăng nhập hoặc mật khẩu không đúng!";
             return View();
         }
-
+        public ActionResult Profile()
+        {
+            if (Session["IdUser"] != null)
+            {
+                int id = (int)Session["IdUser"];
+                var user = data.NhanViens.FirstOrDefault(a => a.IdNhanVien == id);
+                return View(user);
+            }
+            return RedirectToAction("Login", "Account");
+        }
         public ActionResult Logout()
         {
             Session["LoggedInUser"] = null;

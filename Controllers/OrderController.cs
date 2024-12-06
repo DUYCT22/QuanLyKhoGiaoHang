@@ -10,6 +10,7 @@ using System.IO;
 using PagedList;
 using PagedList.Mvc;
 using DocumentFormat.OpenXml.Office2010.Excel;
+using System.Data.SqlClient;
 namespace NguyenNhutDuy_2122110447.Controllers
 {
     public class OrderController : BaseController
@@ -17,13 +18,33 @@ namespace NguyenNhutDuy_2122110447.Controllers
         private static DataTable _previewTable;
         QuanLyKhoGiaoHangEntities2 data = new QuanLyKhoGiaoHangEntities2();
         // GET: DonHang
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, string searchTerm, string sortOrder)
         {
+            var orders = data.DonHangs.AsQueryable();
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                orders = orders.Where(o => o.Ten.Contains(searchTerm));
+            }
+            switch (sortOrder)
+            {
+                case "asc":
+                    orders = orders.OrderBy(o => o.GiaTriDonHang);
+                    break;
+                case "desc":
+                    orders = orders.OrderByDescending(o => o.GiaTriDonHang);
+                    break;
+                default:
+                    orders = orders.OrderBy(o => o.Id);
+                    break;
+            }
             int pageSize = 5;
-            int pageNumber = (page ?? 1);
-            var listDonHang = data.DonHangs.OrderBy(d => d.Id).ToPagedList(pageNumber, pageSize);
-            return View(listDonHang);
+            int pageNumber = page ?? 1;
+            var pagedOrders = orders.ToPagedList(pageNumber, pageSize);
+            return View(pagedOrders);
         }
+
+        
+
 
         public ActionResult Create()
         {
@@ -137,12 +158,49 @@ namespace NguyenNhutDuy_2122110447.Controllers
             var dl = data.DonHangs.FirstOrDefault(d => d.Id == Id);
             return View(dl);
         }
-        
-        public ActionResult Delete(int Id)
+
+        public ActionResult Edit(int Id)
         {
             var dl = data.DonHangs.FirstOrDefault(d => d.Id == Id);
+            if (dl == null)
+            {
+                return HttpNotFound();
+            }
+            return View(dl);
+        }
+
+        [HttpPost]
+        public ActionResult Update(int Id, DonHang updatedData)
+        {
+            var dl = data.DonHangs.FirstOrDefault(d => d.Id == Id);
+            if (dl == null)
+            {
+                return HttpNotFound();
+            }
+            dl.Ten = updatedData.Ten;
+            dl.DiaChi = updatedData.DiaChi;
+            dl.Loai = updatedData.Loai;
+            dl.CanNang = updatedData.CanNang;
+            dl.TenNguoiNhan = updatedData.TenNguoiNhan;
+            dl.Sdt = updatedData.Sdt;
+            dl.GiaTriDonHang = updatedData.GiaTriDonHang;
+            dl.TongTien = updatedData.TongTien;
+            dl.GhiChu = updatedData.GhiChu;
+            data.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+        public ActionResult Delete(int id)
+        {
+            var dl = data.DonHangs.FirstOrDefault(d => d.Id == id);
+            if (dl == null)
+            {
+                return HttpNotFound();
+            }
             data.DonHangs.Remove(dl);
-            return View("Index");
+            data.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

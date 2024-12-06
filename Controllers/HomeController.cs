@@ -9,7 +9,6 @@ namespace NguyenNhutDuy_2122110447.Controllers
             return View();
         }
 
-
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
