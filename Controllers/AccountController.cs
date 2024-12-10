@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Newtonsoft.Json;
 using NguyenNhutDuy_2122110447.Models;
 using System;
@@ -52,7 +53,17 @@ namespace NguyenNhutDuy_2122110447.Controllers
         public ActionResult Logout()
         {
             Session["LoggedInUser"] = null;
+            Session["IdUser"] = null;
+            Session["UserName"] = null;
             return RedirectToAction("Login", "Account");
+        }
+        public ActionResult ForgotPassword()
+        {
+            if (Session["LoggedInUser"] == null)
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

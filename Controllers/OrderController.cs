@@ -8,14 +8,12 @@ using System.Web.Mvc;
 using System.Data;
 using System.IO;
 using PagedList;
-using PagedList.Mvc;
-using DocumentFormat.OpenXml.Office2010.Excel;
-using System.Data.SqlClient;
+using DocumentFormat.OpenXml.Drawing.Charts;
 namespace NguyenNhutDuy_2122110447.Controllers
 {
     public class OrderController : BaseController
     {
-        private static DataTable _previewTable;
+        private static System.Data.DataTable _previewTable;
         QuanLyKhoGiaoHangEntities2 data = new QuanLyKhoGiaoHangEntities2();
         // GET: DonHang
         public ActionResult Index(int? page, string searchTerm, string sortOrder)
@@ -64,7 +62,7 @@ namespace NguyenNhutDuy_2122110447.Controllers
                     using (var package = new ExcelPackage(file.InputStream))
                     {
                         var worksheet = package.Workbook.Worksheets[0];
-                        var dt = new DataTable();
+                        var dt = new System.Data.DataTable();
 
                         // Đọc header
                         for (int i = 1; i <= worksheet.Dimension.End.Column; i++)
@@ -144,7 +142,7 @@ namespace NguyenNhutDuy_2122110447.Controllers
                     db.SaveChanges();
                 }
 
-                Session.Remove("PreviewData"); // Xóa dữ liệu sau khi lưu thành công
+                Session.Remove("PreviewData");
                 ViewBag.Message = "Dữ liệu đã được thêm thành công!";
                 return RedirectToAction("Index");
             }
@@ -155,8 +153,12 @@ namespace NguyenNhutDuy_2122110447.Controllers
 
         public ActionResult Detail(int Id)
         {
-            var dl = data.DonHangs.FirstOrDefault(d => d.Id == Id);
-            return View(dl);
+            var dl = data.DonHangs.Find(Id);
+            if (dl == null)
+            {
+                return Content("Không tìm thấy đơn hàng.");
+            }
+            return PartialView("Detail", dl);
         }
 
         public ActionResult Edit(int Id)
