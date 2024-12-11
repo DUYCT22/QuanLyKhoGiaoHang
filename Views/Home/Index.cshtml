@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
-        /* Bổ sung thêm CSS trực tiếp nếu cần */
         body {
             background: url('/Content/image/hinh-nen-powerpoint-tet-14-3.png') no-repeat center center;
             background-size: cover;
@@ -19,7 +18,6 @@
     </style>
 </head>
 <body >
-        
         <section class="row" aria-labelledby="aspnetTitle">
             <h1 id="title">Quản lý Dữ liệu</h1>
             <p class="lead">Quản lý các chỉ số và dữ liệu quan trọng qua các biểu đồ trực quan.</p>
@@ -35,7 +33,6 @@
                 <canvas id="barChart"></canvas>
             </section>
         </div>
-
         <script>
             var ctx = document.getElementById('pieChart').getContext('2d');
             var pieChart = new Chart(ctx, {
@@ -56,7 +53,7 @@
                         legend: {
                             position: 'top',
                             labels: {
-                                color: '#FFFFFF' // Màu chữ của chú thích
+                                color: '#FFFFFF'
                             }
                         },
                         tooltip: {
@@ -69,7 +66,6 @@
                     }
                 }
             });
-
             var ctx2 = document.getElementById('barChart').getContext('2d');
             var barChart = new Chart(ctx2, {
                 type: 'bar',
@@ -88,26 +84,25 @@
                     plugins: {
                         legend: {
                             labels: {
-                                color: '#FFFFFF' // Màu chữ của chú thích
+                                color: '#FFFFFF'
                             }
                         }
                     },
                     scales: {
                         x: {
                             ticks: {
-                                color: '#ffffff' // Màu chữ của trục X
+                                color: '#ffffff'
                             }
                         },
                         y: {
                             ticks: {
-                                color: '#ffffff' // Màu chữ của trục Y
+                                color: '#ffffff'
                             },
                             beginAtZero: true
                         }
                     }
                 }
             });
-
         </script>
     </body>
 </html>

@@ -13,10 +13,10 @@ namespace NguyenNhutDuy_2122110447.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class QuanLyKhoGiaoHangEntities2 : DbContext
+    public partial class QuanLyKhoGiaoHangEntities3 : DbContext
     {
-        public QuanLyKhoGiaoHangEntities2()
-            : base("name=QuanLyKhoGiaoHangEntities2")
+        public QuanLyKhoGiaoHangEntities3()
+            : base("name=QuanLyKhoGiaoHangEntities3")
         {
         }
     
@@ -25,12 +25,12 @@ namespace NguyenNhutDuy_2122110447.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<DonHang> DonHangs { get; set; }
         public virtual DbSet<GiaoHang> GiaoHangs { get; set; }
         public virtual DbSet<LoiNhanVien> LoiNhanViens { get; set; }
         public virtual DbSet<NhanVien> NhanViens { get; set; }
         public virtual DbSet<QuanLyVatTu> QuanLyVatTus { get; set; }
-        public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<LichSuBanGiaoVatTu> LichSuBanGiaoVatTus { get; set; }
         public virtual DbSet<LichSuGiaoHang> LichSuGiaoHangs { get; set; }
         public virtual DbSet<LichSuPhanPhoi> LichSuPhanPhois { get; set; }

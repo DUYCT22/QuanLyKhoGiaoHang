@@ -14,7 +14,7 @@ namespace NguyenNhutDuy_2122110447.Controllers
     public class OrderController : BaseController
     {
         private static System.Data.DataTable _previewTable;
-        QuanLyKhoGiaoHangEntities2 data = new QuanLyKhoGiaoHangEntities2();
+        QuanLyKhoGiaoHangEntities3 data = new QuanLyKhoGiaoHangEntities3();
         // GET: DonHang
         public ActionResult Index(int? page, string searchTerm, string sortOrder)
         {
@@ -114,7 +114,7 @@ namespace NguyenNhutDuy_2122110447.Controllers
             var previewData = Session["PreviewData"] as List<PreviewItem>;
             if (previewData != null)
             {
-                using (var db = new QuanLyKhoGiaoHangEntities2())
+                using (var db = new QuanLyKhoGiaoHangEntities3())
                 {
                     foreach (var row in previewData)
                     {

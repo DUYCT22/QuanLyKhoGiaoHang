@@ -18,6 +18,7 @@ namespace NguyenNhutDuy_2122110447.Models
         public string TenDangNhap { get; set; }
         public string MatKhau { get; set; }
         public string ChucVu { get; set; }
+        public int Id { get; set; }
     
         public virtual NhanVien NhanVien { get; set; }
     }

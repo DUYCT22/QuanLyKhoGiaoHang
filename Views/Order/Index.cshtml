@@ -10,7 +10,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
     <title>Danh sách đơn hàng</title>
     <style>
-        /* Bổ sung thêm CSS trực tiếp nếu cần */
         body {
             background: url('/Content/image/hinh-nen-powerpoint-tet-14-3.png') no-repeat center center;
             background-size: cover;
@@ -18,51 +17,33 @@
             height: 90vh;
             color: aliceblue
         }
-
-        .custom-btn {
-            background-color: transparent; /* Nền trong suốt */
-            border: none; /* Loại bỏ viền mặc định của nút */
-            padding: 10px 20px; /* Căn chỉnh padding */
-            position: relative; /* Cần để tạo viền chữ */
-            color: gold; /* Màu chữ vàng */
-            font-weight: bold; /* Chữ đậm */
-            text-transform: uppercase; /* Chữ in hoa (tuỳ chọn) */
+        .custom-btn a {
+            color: aliceblue; /* Đặt màu chữ vàng cho link */
+            text-decoration: none; /* Bỏ gạch chân */
         }
-
-            .custom-btn a {
-                color: gold; /* Đặt màu chữ vàng cho link */
-                text-decoration: none; /* Bỏ gạch chân */
-            }
-
-                .custom-btn a:hover {
-                    color: orange; /* Hiệu ứng màu chữ khi hover (tuỳ chọn) */
-                }
-
-                .custom-btn a::after {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    border: 2px solid gold; /* Viền vàng */
-                    border-radius: 5px; /* Bo tròn góc (tuỳ chọn) */
-                    pointer-events: none; /* Không ảnh hưởng khi click */
-                }
+        .custom-btn a:hover {
+            color: orange; /* Hiệu ứng màu chữ khi hover (tuỳ chọn) */
+        }
+        .custom-btn a::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid gold; /* Viền vàng */
+            border-radius: 5px; /* Bo tròn góc (tuỳ chọn) */
+            pointer-events: none; /* Không ảnh hưởng khi click */
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function handleRowClick(event, orderId) {
-            // Kiểm tra nếu người dùng click vào một nút bên trong hàng (như Sửa, Xóa)
             if (event.target.closest('.btn')) {
-                return; // Không làm gì khi click vào nút
+                return;
             }
-
-            // Hiển thị modal chi tiết
             var modal = new bootstrap.Modal(document.getElementById('detailModal'));
             modal.show();
-
-            // Gọi AJAX để tải chi tiết đơn hàng
             fetch(`/Order/Detail/${orderId}`)
                 .then(response => response.text())
                 .then(data => {
@@ -79,7 +60,7 @@
 
 </head>
 <body>
-    <button class="btn custom-btn">
+    <button class="btn custom-btn" >
         @Html.ActionLink("Nhập hàng", "Create", null, new { @style = "text-decoration: none;" })
     </button>
 
@@ -103,11 +84,11 @@
     </div>
     @if (!string.IsNullOrEmpty(Request.QueryString["searchTerm"]))
     {
-        <p class="text-muted">Kết quả tìm kiếm cho: <b>@Request.QueryString["searchTerm"]</b></p>
+        <p class="text-muted text-">Kết quả tìm kiếm cho: <b>@Request.QueryString["searchTerm"]</b></p>
     }
 
     <table class="table table-hover">
-        <thead class="table-warning">
+        <thead class="table-dark">
             <tr class="align-content-center">
                 <th>Địa chỉ</th>
                 <th>Tên</th>
@@ -143,7 +124,7 @@
                           onclick = "return confirm('Bạn có chắc muốn xóa không?');"
                       })
                       <p></p>
-                      @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" })
+                      @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
 
                   </td>
               </tr>
@@ -198,11 +179,11 @@
         }
 
             .pagination a:hover {
-                background-color: gold;
+                background-color: cornflowerblue;
             }
 
         .pagination .active a {
-            background-color: gold;
+            background-color: blue;
             color: white;
             border-color: #007bff;
         }
