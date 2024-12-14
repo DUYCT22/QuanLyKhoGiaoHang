@@ -1,0 +1,12 @@
+﻿@model NguyenNhutDuy_2122110447.Models.DonHang
+
+<div style="color:black">
+    <p><strong>Địa chỉ:</strong> @Model.DiaChi</p>
+    <p><strong>Tên:</strong> @Model.Ten</p>
+    <p><strong>Loại:</strong> @Model.Loai</p>
+    <p><strong>Cân nặng:</strong> @Model.CanNang kg</p>
+    <p><strong>Tên người nhận:</strong> @Model.TenNguoiNhan</p>
+    <p><strong>Số điện thoại:</strong> @Model.Sdt</p>
+    <p><strong>Tổng tiền:</strong> @String.Format("{0:0,0}", Model.TongTien) VND</p>
+    <p><strong>Ghi chú:</strong> @Model.GhiChu</p>
+</div>

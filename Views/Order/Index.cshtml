@@ -1,0 +1,193 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<NguyenNhutDuy_2122110447.Models.DonHang>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Danh sách Đơn hàng</title>
+    <style>
+        body {
+            background: url('/Content/image/hinh-nen-powerpoint-tet-14-3.png') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            height: 90vh;
+            color: aliceblue
+        }
+        .custom-btn a {
+            color: aliceblue; /* Đặt màu chữ vàng cho link */
+            text-decoration: none; /* Bỏ gạch chân */
+        }
+        .custom-btn a:hover {
+            color: orange; /* Hiệu ứng màu chữ khi hover (tuỳ chọn) */
+        }
+        .custom-btn a::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid gold; /* Viền vàng */
+            border-radius: 5px; /* Bo tròn góc (tuỳ chọn) */
+            pointer-events: none; /* Không ảnh hưởng khi click */
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function handleRowClick(event, orderId) {
+            if (event.target.closest('.btn')) {
+                return;
+            }
+            var modal = new bootstrap.Modal(document.getElementById('detailModal'));
+            modal.show();
+            fetch(`/Order/Detail/${orderId}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('orderDetailContent').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error loading order details:', error);
+                    document.getElementById('orderDetailContent').innerHTML = 'Không thể tải chi tiết đơn hàng.';
+                });
+        }
+    </script>
+
+
+
+</head>
+<body>
+    <button class="btn custom-btn" >
+        @Html.ActionLink("Nhập hàng", "Create", null, new { @style = "text-decoration: none;" })
+    </button>
+
+
+    <p></p>
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <form method="get">
+                <input type="text" name="searchTerm" class="form-control" placeholder="Tìm kiếm theo tên..." value="@Request.QueryString["searchTerm"]" />
+        </div>
+        <div class="col-md-4">
+            <select name="sortOrder" class="form-select">
+                <option value="asc" @(Request.QueryString["sortOrder"] == "asc" ? "selected" : "")>Giá trị đơn hàng: Thấp đến Cao</option>
+                <option value="desc" @(Request.QueryString["sortOrder"] == "desc" ? "selected" : "")>Giá trị đơn hàng: Cao đến Thấp</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary">Lọc</button>
+            </form>
+        </div>
+    </div>
+    @if (!string.IsNullOrEmpty(Request.QueryString["searchTerm"]))
+    {
+        <p class="text-muted"> <b style="color:aliceblue">Kết quả tìm kiếm cho: @Request.QueryString["searchTerm"]</b></p>
+    }
+
+    <table class="table table-hover">
+        <thead class="table-dark">
+            <tr class="align-content-center">
+                <th>Địa chỉ</th>
+                <th>Tên</th>
+                <th>Loại</th>
+                <th>Cân nặng(kg)</th>
+                <th>Tên người nhận</th>
+                <th>Sdt</th>
+                <th>Giá trị đơn hàng</th>
+                <th>Tổng tiền</th>
+                <th>Ghi chú</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody style="color:aliceblue">
+            @foreach (var item in Model)
+            {
+              <tr onclick="handleRowClick(event, @item.Id)" style="cursor: pointer">
+
+                  <td>@Html.DisplayFor(modelItem => item.DiaChi)</td>
+                  <td>@Html.DisplayFor(modelItem => item.Ten)</td>
+                  <td>@Html.DisplayFor(modelItem => item.Loai)</td>
+                  <td>@Html.DisplayFor(modelItem => item.CanNang)</td>
+                  <td>@Html.DisplayFor(modelItem => item.TenNguoiNhan)</td>
+                  <td>@Html.DisplayFor(modelItem => item.Sdt)</td>
+                  <td>@String.Format("{0:0,0}", item.GiaTriDonHang)</td>
+                  <td>@String.Format("{0:0,0}", item.TongTien)</td>
+                  <td>@Html.DisplayFor(modelItem => item.GhiChu)</td>
+                  <td>
+
+                      @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, new
+                      {
+                          @class = "btn btn-dark btn-sm",
+                          onclick = "return confirm('Bạn có chắc muốn xóa không?');"
+                      })
+                      <p></p>
+                      @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+
+                  </td>
+              </tr>
+            }
+        </tbody>
+
+    </table>
+    <div id="detailModal" class="modal" tabindex="-1" >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background: url('/Content/image/image_26-hinh-nen-powerpoint-tet.jpg'); background-size:cover">
+                <div class="modal-header">
+                    <h4 class="modal-title text-dark">Chi tiết đơn hàng</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="orderDetailContent">Đang tải...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="d-flex justify-content-center">
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+           new
+           {
+               page = page,
+               searchTerm = Request.QueryString["searchTerm"],
+               sortOrder = Request.QueryString["sortOrder"]
+           }),
+           new PagedListRenderOptions
+           {
+               DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+               DisplayLinkToLastPage = PagedListDisplayMode.Always,
+               DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+               DisplayLinkToNextPage = PagedListDisplayMode.Always,
+               MaximumPageNumbersToDisplay = 5,
+               DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+               UlElementClasses = new[] { "pagination" },
+               LiElementClasses = new[] { "page-item" },
+           })
+
+    </div>
+    <style>
+        .pagination a {
+            color: gold;
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            margin: 0 2px;
+        }
+
+            .pagination a:hover {
+                background-color: cornflowerblue;
+            }
+
+        .pagination .active a {
+            background-color: blue;
+            color: white;
+            border-color: #007bff;
+        }
+    </style>
+
+</body>
+</html>
