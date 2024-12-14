@@ -41,6 +41,12 @@ namespace NguyenNhutDuy_2122110447.Controllers
             return View(pagedOrders);
         }
 
+<<<<<<< HEAD
+=======
+        
+
+
+>>>>>>> f511d44531c3462afc24e4e10c40606d84f43b9e
         public ActionResult Create()
         {
             return View();

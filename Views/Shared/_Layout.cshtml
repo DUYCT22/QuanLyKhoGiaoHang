@@ -12,12 +12,19 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <style>
         /* Đặt sidebar bên trái */
+<<<<<<< HEAD
         /* Đặt sidebar bên trái */
+=======
+>>>>>>> f511d44531c3462afc24e4e10c40606d84f43b9e
         .sidebar {
             position: fixed;
             top: 0;
             left: 0;
+<<<<<<< HEAD
             width: 40px; /* Chiều rộng mặc định khi thu nhỏ */
+=======
+            width: 250px;
+>>>>>>> f511d44531c3462afc24e4e10c40606d84f43b9e
             height: 100%;
             background-color: #343a40;
             padding-top: 20px;
@@ -27,6 +34,7 @@
 
         /* Đảm bảo body không bị che khuất khi mở sidebar */
         body {
+<<<<<<< HEAD
             margin-left: 50px; /* Đồng bộ với chiều rộng sidebar thu nhỏ */
             transition: margin-left 0.3s ease;
         }
@@ -36,6 +44,12 @@
             width: 200px; /* Chiều rộng khi hover */
         }
 
+=======
+            margin-left: 250px;
+            transition: margin-left 0.3s ease;
+        }
+
+>>>>>>> f511d44531c3462afc24e4e10c40606d84f43b9e
         /* Các mục menu trong sidebar */
         .sidebar ul {
             padding-left: 0;
@@ -59,6 +73,7 @@
                 background-color: #495057;
             }
 
+<<<<<<< HEAD
         /* Ẩn text khi thu nhỏ sidebar */
         .sidebar .nav-text {
             opacity: 0; /* Ẩn hoàn toàn nhưng vẫn giữ không gian */
@@ -72,6 +87,21 @@
         .sidebar:hover .nav-text {
             opacity: 1; /* Hiển thị text */
             visibility: visible;
+=======
+        /* Sidebar thu vào một ít nhưng vẫn hiển thị phần text */
+        .sidebar.shrink {
+            width: 50px;
+        }
+
+            /* Chỉ ẩn text khi sidebar thu lại */
+            .sidebar.shrink .nav-text {
+                display: none;
+            }
+
+        /* Chỉ hiển thị text khi hover vào sidebar */
+        .sidebar:hover .nav-text {
+            display: inline;
+>>>>>>> f511d44531c3462afc24e4e10c40606d84f43b9e
         }
 
         /* Nội dung mặc định khi sidebar thu nhỏ */
@@ -80,16 +110,32 @@
             transition: margin-left 0.3s ease;
         }
 
+<<<<<<< HEAD
         /* Nội dung khi sidebar mở rộng */
         .sidebar:hover ~ .content {
             margin-left: 250px; /* Đồng bộ với chiều rộng sidebar khi mở rộng */
         }
 
+=======
+            /* Nội dung khi sidebar mở rộng */
+            .content.shrink {
+                margin-left: 250px; /* Đồng bộ với chiều rộng sidebar khi mở rộng */
+            }
+
+
+
+
+        /* Hiển thị nút khi sidebar thu vào */
+        .sidebar.shrink .sidebar-toggle-btn {
+            display: block;
+        }
+>>>>>>> f511d44531c3462afc24e4e10c40606d84f43b9e
     </style>
 </head>
 <body>
     
     <div class="sidebar shrink" id="sidebar">
+<<<<<<< HEAD
         <ul>
             <li><a href="@Url.Action("Index", "Home")" class="nav-link"><i class="bi bi-house-fill"></i><span class="nav-text"> Trang chủ</span></a></li>
             <li><a href="@Url.Action("Index", "Order")" class="nav-link"><i class="bi bi-box-seam-fill"></i><span class="nav-text"> Đơn hàng</span></a></li>
@@ -98,6 +144,20 @@
             {
                 <li><a href="@Url.Action("Profile", "Account")" class="nav-link"><i class="bi bi-person-circle"></i><span class="nav-text"> Cá nhân</span></a></li>
                 <li><a href="@Url.Action("Logout", "Account")" class="nav-link"><i class="bi bi-arrow-left-square-fill"></i><span class="nav-text"> Đăng xuất</span></a></li>
+=======
+        
+
+        <ul>
+
+            <li><a href="@Url.Action("Index", "Home")" class="nav-link"><i class="bi bi-house-door"></i><span class="nav-text"> Trang chủ</span></a></li>
+            <li><a href="@Url.Action("Index", "Order")" class="nav-link"><i class="bi bi-box"></i><span class="nav-text"> Đơn hàng</span></a></li>
+            <li><a href="@Url.Action("About", "Home")" class="nav-link"><i class="bi bi-info-circle"></i><span class="nav-text"> About</span></a></li>
+            <li><a href="@Url.Action("Contact", "Home")" class="nav-link"><i class="bi bi-envelope"></i><span class="nav-text"> Contact</span></a></li>
+            @if (Session["LoggedInUser"] != null)
+            {
+                <li><a href="@Url.Action("Profile", "Account")" class="nav-link"><i class="bi bi-info-circle"></i><span class="nav-text"> Cá nhân</span></a></li>
+                <li><a href="@Url.Action("Logout", "Account")" class="nav-link"><i class="bi bi-box-arrow-right"></i><span class="nav-text"> Đăng xuất</span></a></li>
+>>>>>>> f511d44531c3462afc24e4e10c40606d84f43b9e
             }
         </ul>
     </div>
