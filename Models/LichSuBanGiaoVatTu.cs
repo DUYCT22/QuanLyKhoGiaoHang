@@ -18,7 +18,10 @@ namespace NguyenNhutDuy_2122110447.Models
         public int IdNhanVien { get; set; }
         public string TrangThai { get; set; }
         public System.DateTime NgayTao { get; set; }
+<<<<<<< HEAD
         public int Id { get; set; }
+=======
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
     
         public virtual NhanVien NhanVien { get; set; }
         public virtual QuanLyVatTu QuanLyVatTu { get; set; }

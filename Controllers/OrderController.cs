@@ -14,7 +14,11 @@ namespace NguyenNhutDuy_2122110447.Controllers
     public class OrderController : BaseController
     {
         private static System.Data.DataTable _previewTable;
+<<<<<<< HEAD
         QuanLyKhoGiaoHangEntities1 data = new QuanLyKhoGiaoHangEntities1();
+=======
+        QuanLyKhoGiaoHangEntities3 data = new QuanLyKhoGiaoHangEntities3();
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
         // GET: DonHang
         public ActionResult Index(int? page, string searchTerm, string sortOrder)
         {
@@ -35,11 +39,25 @@ namespace NguyenNhutDuy_2122110447.Controllers
                     orders = orders.OrderBy(o => o.Id);
                     break;
             }
+<<<<<<< HEAD
             int pageSize = 4;
+=======
+            int pageSize = 5;
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
             int pageNumber = page ?? 1;
             var pagedOrders = orders.ToPagedList(pageNumber, pageSize);
             return View(pagedOrders);
         }
+<<<<<<< HEAD
+=======
+
+<<<<<<< HEAD
+=======
+        
+
+
+>>>>>>> f511d44531c3462afc24e4e10c40606d84f43b9e
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
         public ActionResult Create()
         {
             return View();
@@ -59,11 +77,21 @@ namespace NguyenNhutDuy_2122110447.Controllers
                     {
                         var worksheet = package.Workbook.Worksheets[0];
                         var dt = new System.Data.DataTable();
+<<<<<<< HEAD
+=======
+
+                        // Đọc header
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
                         for (int i = 1; i <= worksheet.Dimension.End.Column; i++)
                         {
                             var columnName = worksheet.Cells[1, i].Text.Trim();
                             dt.Columns.Add(columnName);
                         }
+<<<<<<< HEAD
+=======
+
+                        // Đọc dữ liệu
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
                         for (int i = 2; i <= worksheet.Dimension.End.Row; i++)
                         {
                             var row = dt.NewRow();
@@ -73,6 +101,11 @@ namespace NguyenNhutDuy_2122110447.Controllers
                             }
                             dt.Rows.Add(row);
                         }
+<<<<<<< HEAD
+=======
+
+                        // Chuyển dữ liệu sang một danh sách có kiểu mạnh (PreviewItem)
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
                         var previewData = dt.AsEnumerable().Select(row => new PreviewItem
                         {
                             Id = row["Id"] != DBNull.Value ? Convert.ToInt32(row["Id"]) : 0,
@@ -86,9 +119,17 @@ namespace NguyenNhutDuy_2122110447.Controllers
                             TongTien = row["Tổng tiền"] != DBNull.Value ? Convert.ToDecimal(row["Tổng tiền"]) : 0,
                             GhiChu = row["Ghi chú"].ToString()
                         }).ToList();
+<<<<<<< HEAD
                         Session["PreviewData"] = previewData;
                     }
                     return View("Create");
+=======
+
+                        // Lưu vào Session để sử dụng trong ConfirmImport
+                        Session["PreviewData"] = previewData;
+                    }
+                    return View("Create"); // Chuyển đến view preview
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
                 }
             }
             ModelState.AddModelError("", "Vui lòng chọn file Excel hợp lệ.");
@@ -102,7 +143,11 @@ namespace NguyenNhutDuy_2122110447.Controllers
             var previewData = Session["PreviewData"] as List<PreviewItem>;
             if (previewData != null)
             {
+<<<<<<< HEAD
                 using (var db = new QuanLyKhoGiaoHangEntities1())
+=======
+                using (var db = new QuanLyKhoGiaoHangEntities3())
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
                 {
                     foreach (var row in previewData)
                     {
@@ -192,6 +237,7 @@ namespace NguyenNhutDuy_2122110447.Controllers
             data.SaveChanges();
             return RedirectToAction("Index");
         }
+<<<<<<< HEAD
         public ActionResult Distribution()
         {
             var nhanVienGiaoHang = data.NhanViens
@@ -235,5 +281,7 @@ namespace NguyenNhutDuy_2122110447.Controllers
             return RedirectToAction("Index");
             
         }
+=======
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
     }
 }

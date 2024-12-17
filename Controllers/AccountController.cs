@@ -17,7 +17,11 @@ namespace NguyenNhutDuy_2122110447.Controllers
 {
     public class AccountController : Controller
     {
+<<<<<<< HEAD
         QuanLyKhoGiaoHangEntities1 data = new QuanLyKhoGiaoHangEntities1();
+=======
+        QuanLyKhoGiaoHangEntities3 data = new QuanLyKhoGiaoHangEntities3();
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
         public ActionResult Login()
         {
             return View();
@@ -109,7 +113,11 @@ namespace NguyenNhutDuy_2122110447.Controllers
             int? storedCode = Session["VerificationCode"] as int?;
             if (storedCode == code)
             {
+<<<<<<< HEAD
                 return Json(new { success = true, message = "Mã xác minh hợp lệ!" });
+=======
+                return Json(new { success = true });
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
             }
             return Json(new { success = false, message = "Mã xác minh không đúng!" });
         }

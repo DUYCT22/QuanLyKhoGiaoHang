@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 ﻿using DocumentFormat.OpenXml.Office2010.Excel;
 using NguyenNhutDuy_2122110447.Models;
+=======
+﻿using NguyenNhutDuy_2122110447.Models;
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -12,7 +16,11 @@ namespace NguyenNhutDuy_2122110447.Controllers
     public class PersonnelController : BaseController
     {
         // GET: Personnel
+<<<<<<< HEAD
         QuanLyKhoGiaoHangQuanLyKhoGiaoHangEntities1Entities data = new QuanLyKhoGiaoHangEntities1();
+=======
+        QuanLyKhoGiaoHangEntities3 data = new QuanLyKhoGiaoHangEntities3();
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
         public ActionResult Index(int? page, string searchTerm, string sortPersonnel)
         {
             var personnels = data.NhanViens.AsQueryable();
@@ -34,8 +42,13 @@ namespace NguyenNhutDuy_2122110447.Controllers
             }
             int pageSize = 5;
             int pageNumber = page ?? 1;
+<<<<<<< HEAD
             var pagedPersonnel = personnels.ToPagedList(pageNumber, pageSize);
             return View(pagedPersonnel);
+=======
+            var pagedOrders = personnels.ToPagedList(pageNumber, pageSize);
+            return View(pagedOrders);
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
         }
         public ActionResult Create()
         {
@@ -105,6 +118,7 @@ namespace NguyenNhutDuy_2122110447.Controllers
             data.SaveChanges();
             return RedirectToAction("Index");
         }
+<<<<<<< HEAD
         public ActionResult Violate(int? page, string searchTerm, string sortViolate)
         {
             var violates = data.LoiNhanViens.Include("NhanVien").AsQueryable();
@@ -167,5 +181,7 @@ namespace NguyenNhutDuy_2122110447.Controllers
         }
 
 
+=======
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
     }
 }

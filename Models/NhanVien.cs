@@ -19,10 +19,17 @@ namespace NguyenNhutDuy_2122110447.Models
         {
             this.Accounts = new HashSet<Account>();
             this.GiaoHangs = new HashSet<GiaoHang>();
+<<<<<<< HEAD
             this.LichSuBanGiaoVatTus = new HashSet<LichSuBanGiaoVatTu>();
             this.LichSuGiaoHangs = new HashSet<LichSuGiaoHang>();
             this.LichSuPhanPhois = new HashSet<LichSuPhanPhoi>();
             this.LoiNhanViens = new HashSet<LoiNhanVien>();
+=======
+            this.LoiNhanViens = new HashSet<LoiNhanVien>();
+            this.LichSuBanGiaoVatTus = new HashSet<LichSuBanGiaoVatTu>();
+            this.LichSuGiaoHangs = new HashSet<LichSuGiaoHang>();
+            this.LichSuPhanPhois = new HashSet<LichSuPhanPhoi>();
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
         }
     
         public int IdNhanVien { get; set; }
@@ -38,12 +45,20 @@ namespace NguyenNhutDuy_2122110447.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GiaoHang> GiaoHangs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+<<<<<<< HEAD
+=======
+        public virtual ICollection<LoiNhanVien> LoiNhanViens { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
         public virtual ICollection<LichSuBanGiaoVatTu> LichSuBanGiaoVatTus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LichSuGiaoHang> LichSuGiaoHangs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LichSuPhanPhoi> LichSuPhanPhois { get; set; }
+<<<<<<< HEAD
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LoiNhanVien> LoiNhanViens { get; set; }
+=======
+>>>>>>> dc7e641d3c441c1823f654766761d0d3dbed7bb2
     }
 }
